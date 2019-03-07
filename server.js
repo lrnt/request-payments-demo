@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const request = require("@requestnetwork/payments-server")(process.env.API_KEY);
+const request = require("@requestnetwork/payments-server")(
+  process.env.API_KEY, { apiUrl: "https://baguette-signer.request.network/api" }
+);
 
 
 const app = express();
@@ -8,7 +10,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-    
 app.post("/request", request.handler(process.env.ETH_ADDRESS));
 
 app.use(function(err, req, res, next) {
