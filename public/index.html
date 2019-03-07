@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Yet Another Crypto Shop!</title>
+    <link id="favicon" rel="icon" href="https://app.request.network/assets/img/favicon.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    
+  </head>
+  <body>
+      <label id="toggle">
+        <input type="checkbox" id="v2-checkbox" onclick="initPaymentButton()">
+        Use V2!
+      </label>
+
+      <div id="root">
+        <h1>Yet another crypto shop</h1>
+        <div id="checkout">
+          <div id="cart-summary">
+          <table>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Candy box</td>
+                <td>EUR 7</td>
+                <td>1</td>
+                <td>EUR 7</td>
+              </tr>
+            </tbody>
+          </table>       
+        </div>
+      </div>
+      <div id="request-payment"
+           data-style-button-variant="dark"></div>
+    </div>
+    
+    <!--<script src="https://unpkg.com/request-payments@0.4.0-alpha.4/dist/request-payments.iife.production.js"></script>-->
+    <script src="http://localhost:3000/dist/request-payments.iife.production.js"></script>
+    <script>
+      initPaymentButton();
+
+      function initPaymentButton() {
+        var checkbox = document.getElementById("v2-checkbox");
+        var rateApi = {
+          convert: (amount, currency, toCurrency) => {
+            return Promise.resolve(amount * 0.01);
+          },
+        };
+        var commonOptions = {
+          signingApi: "/request",
+          rateApi: rateApi,
+          paymentOptions: {
+            payeeAddress: "0x627306090abab3a6e1400e9345bc60c78a8bef57",
+            baseAmount: 7,
+            baseCurrency: "EUR"
+          }
+        }
+        var options = checkbox.checked ? {
+          flags: { v2: true },
+          requestApi: "http://a34e78a692ad011e98ec50694bd2f1e0-25488388.eu-west-1.elb.amazonaws.com",
+          ...commonOptions
+        } : {
+          flags: { v2: false },
+          ...commonOptions
+        };
+
+        RequestPayments.init("#request-payment", options);
+      }
+    </script>
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+
+  </body>
+</html>

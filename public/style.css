@@ -1,0 +1,51 @@
+html,
+body {
+  background-color: #f7f8fa;
+  font-family: Poppins, sans-serif;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+#cart-summary {
+  color: #334f6d;
+}
+#root h1 {
+  margin-top: 150px;
+  text-align: left;
+  color: #334f6d;
+}
+#checkout {
+  width: 450px;
+  height: 180px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+#root table {
+  width: 100%;
+}
+#root table > thead {
+  text-align: left;
+}
+
+#request-payment {
+  margin-top: 16px;
+  width: 450px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#toggle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 8px;
+}
